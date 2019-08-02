@@ -1,6 +1,6 @@
 context('Testing EA App', () => {
   before(() => {
-    cy.visit('http://eaapp.somee.com/');
+    cy.visit('/');
     cy.fixture('eauser').as('user');
   });
 
@@ -16,9 +16,7 @@ context('Testing EA App', () => {
     cy.url().should('include', 'Account/Login');
 
     cy.get('@user').then(($user) => {
-      cy.get('#UserName').type($user.username);
-      cy.get('#Password').type($user.password);
-      cy.get('.btn').click();
+      cy.login($user.username, $user.password);
     });
 
     cy.contains('Employee List').click();
